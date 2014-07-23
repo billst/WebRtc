@@ -23,11 +23,6 @@ var manageAudioStreamIndexPassed = 0;
 var Configuration = { "iceServers": [{ "url": "stun:stun.services.mozilla.com" }] };
 
 var timeStart = 0;
-//hub.client.offeredIce = function (connectionId, userName, ice) {
-
-//    $("#log").text(connectionId + "  " + userName + "  " + ice);
-
-//}
 
 
 
@@ -52,8 +47,7 @@ function manageAudioStream() {
 
         merger = context.createChannelMerger(2);
         merger2 = context.createChannelMerger(2);
-       //splitterRemote.connect(merger);
-       // splitter.connect(merger);
+
       
         audioStreamDestNode = context.createMediaStreamDestination();
         splitter.connect(merger, 0);
@@ -69,26 +63,15 @@ function manageAudioStream() {
         
 
 
-        //audioInputRemote.connect(merger);
-
-        //audioInput.connect(merger);
       
-       // merger.connect(audioStreamDestNode);
-
-        //var context2 = new AudioContext();
-        //audioInput2 = context2.createMediaStreamSource(audioStreamDestNode.stream);
-        //audioInput2.connect(context2.destination);
 
 
 
 
         var mediaRecorder = new MediaStreamRecorder(audioStreamDestNode.stream);
- //   var mediaRecorderRemote = new MediaStreamRecorder(streamRemote);
-    mediaRecorder.mimeType = 'audio/wave'; 
-   // mediaRecorderRemote.mimeType = 'audio/wav';
 
-     //  mediaRecorder.mimeType = 'audio/ogg';
-   // mediaRecorderRemote.mimeType = 'audio/ogg';
+    mediaRecorder.mimeType = 'audio/wave'; 
+
 
 
     mediaRecorder.ondataavailable = function (blob) {
@@ -112,33 +95,14 @@ function manageAudioStream() {
 
    
 
-    //mediaRecorderRemote.ondataavailable = function (blob) {
-
-    //    $("#log").append('<p>' + "initiator-" + blob.size.toString() + '</p>');
-
-    //    var form = new FormData();
-    //    index++;
-    //    var t = new Date();
-    //    form.append("blob", blob, "initiator-" + index.toString() + "_" + t.getTime());
-    //    // POST/PUT "Blob" using FormData/XHR2
-    //    var oReq = new XMLHttpRequest();
-    //    oReq.open("POST", url, true);
-    //    oReq.onload = function (oEvent) {
-    //        // Uploaded.
-    //    };
-
-    //    oReq.send(form); 
-    //}
+  
 
 
     mediaRecorder.start(3000);
-    //mediaRecorderRemote.start(100000);
+   
   }
 
-    //var context = new window.webkitAudioContext();
-    //var inputAudioStream = context.createMediaStreamSource(stream);
-    //inputAudioStream.connect(context.destination);
-    //inputAudioStream.mediaStream.stop();
+  
 
 }
 
@@ -146,37 +110,6 @@ function manageAudioStream() {
 
 
 
-//function manageAudioStream2(stream) {
-
-//    var url = "api/wavfiles";
-//    var mediaRecorder = new MediaStreamRecorder(stream);
-
-//    mediaRecorder.mimeType = 'audio/ogg';
-//    mediaRecorder.ondataavailable = function (blob) {
-
-//        $("#log").append('<p>' + blob.size.toString() + '</p>');
-
-//        var form = new FormData();
-//        index++;
-//        form.append("blob", blob, "test1" + index.toString());
-//        // POST/PUT "Blob" using FormData/XHR2
-//        var oReq = new XMLHttpRequest();
-//        oReq.open("POST", url, true);
-//        oReq.onload = function (oEvent) {
-//            // Uploaded.
-//        };
-
-//        oReq.send(form);
-//    }
-
-//    mediaRecorder.start(15000);
-
-//    //var context = new window.webkitAudioContext();
-//    //var inputAudioStream = context.createMediaStreamSource(stream);
-//    //inputAudioStream.connect(context.destination);
-//    //inputAudioStream.mediaStream.stop();
-
-//}
 
 
 
@@ -223,8 +156,7 @@ function localDescCreated(description) {
         hub.server.send(connectionidOther, usernameOther, JSON.stringify({ "sdp": pc.localDescription }));
         console.log("4.3  inside '    pc.setLocalDescription(description, function () {' after send ");
 
-        //hub.server.offerSdp(connectionidOther, usernameOther, JSON.stringify({ "sdp": pc.localDescription }))
-        // hub.server.sendSdp(connectionidOther, usernameOther, JSON.stringify({ "sdp": pc.localDescription }))
+
     }, logError);
 }
 
@@ -283,12 +215,7 @@ function start(connectionidSender, usernameSender, evt) {
         if (event.candidate) {
             console.log("3 SEND  ' inside '   pc.onicecandidate = function (event){'  before send:", event.candidate);
             hub.server.send(connectionidOther, usernameOther,  JSON.stringify({ "candidate": event.candidate }));
-           // signalingChannel.send(JSON.stringify({ "candidate": evt.candidate }));
-    
-        //  hub.server.offerIce(connectionidOther, usernameOther, JSON.stringify({ "candidate": event.candidate }));
-       // hub.server.sendIce(connectionidOther, usernameOther, JSON.stringify({ "candidate": event.candidate }));
-        //signallingChannel.send(JSON.stringify({ "candidate": event.candidate }));
-      //  hub.server.send(JSON.stringify({ "candidate": event.candidate }));
+
         }
 
     };
@@ -347,10 +274,7 @@ $(function () {
         hub.server.updateCallOperatorsList();
      
 
-        //$("#input").dblclick(function (e) {
-
-        //    hub.server.offerIce($("#input").val(), "Ice");
-        //});
+       
 
 
        }
@@ -396,15 +320,11 @@ $(function () {
 
     hub.client.updatedCallOperatorList2 = function (DictionaryConnectionIdSignalUser) {
 
-//         function setCss(indexCss, valueCss){ 
-//             var i = indexCss;
-//             var v= valueCss;
-//         }
+
 
         $("#calloperators").html('');
 
 
-        //$.each(DictionaryConnectionIdSignalUser, function (index, value) { $("#calloperators").append("<li data-connectionid='" + index + "' data-username='" + value.Username + "' >" + value.Username + ":" + " Είναι σε συνδιάλεξη: " + value.IsInRTC + "</li>").css('background-color', value.IsInRTC ? 'red' : 'green') })
         $.each(DictionaryConnectionIdSignalUser, function (index, value) { 
         $("#calloperators").append("<li data-connectionid='" + index + "' data-username='" + value.Username + "' data-IsInRTC ='" + value.IsInRTC +"' >" + value.Username + ":" + " Είναι σε συνδιάλεξη: " + value.IsInRTC + "</li>")
         
@@ -471,76 +391,6 @@ $(function () {
         var ice = JSON.parse(IceJson);
         pc.addIceCandidate(new mozRTCIceCandidate(ice.candidate));
     }
-
-
-
-    //hub.client.offeredIce = function (connectionId, userName, IceJson) {
-
-    //    $("#logError").append("<li>" + "hub.client.offeredIce " + "</li>");
-
-    //    connectionidOther = connectionId;
-    //    usernameOther = userName;
-    //    var ice = JSON.parse(IceJson);
-    //    pc.addIceCandidate(new RTCIceCandidate(ice.candidate));
-    //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //hub.client.answeredSdp = function (connectionId, userName, SdpJson) {
-    //    $("#logError").append("<li>" + "hub.client.answeredSdp " + "</li>");
-    //    var sdp = JSON.parse(SdpJson);
-    //    if (sdp) {
-    //        pc.setRemoteDescription(new RTCSessionDescription(sdp), function () {}, logError);
-    //    }
-
-
-    //}
-
-    //hub.client.offeredSdp = function (connectionId, username, SdpJson) {
-    //    var sdp = JSON.parse(SdpJson);
-    //    if (sdp) {
-    //        pc.setRemoteDescription(new RTCSessionDescription(sdp), function () {
-    //            if (pc.remoteDescription.type == RTCSdpType.offer)
-    //                pc.createAnswer(localDescCreated, logError);
-    //        }, logError);
-    //    }
-    //}
-
-    //function localDescCreated(desc) {
-
-    //    createLocalVideoStream();
-
-    //    pc.setLocalDescription(desc, function () {
-    //        hub.server.offerSdp(connectionidOther, usernameOther, JSON.stringify({ "sdp": pc.localDescription }))
-    //        //signallingChannel.send(JSON.stringify({ "sdp": pc.localDescription }));
-    //    }, logError);
-    //}
-
-
-
-
-
-
-
-
-
-    //function createLocalVideoStream() {
-
-
-    //}
 
 
     function clickForVideoConference(e) {

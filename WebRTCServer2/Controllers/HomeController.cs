@@ -13,7 +13,7 @@ namespace WebRTCServer2.Controllers
         public ActionResult Index()
         {
             
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            ViewBag.Message = "ASP.NET MVC application.";
             ViewBag.basePath = Request.Url.AbsoluteUri;
             return View();
         }
